@@ -4,10 +4,12 @@ import { AppComponent } from './app.component';
 import { RegisterModule } from './register/register.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TaskListComponent,
   ],
   imports: [
     BrowserModule,
