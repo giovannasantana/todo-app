@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 interface Task {
   id: number;
@@ -11,13 +12,20 @@ interface Task {
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit {
+  tasks: Task[] = [];
 
-  tasks: Task[] = [
-    { id: 1, title: 'Tarefa 1', completed: false },
-    { id: 2, title: 'Tarefa 2', completed: false },
-    { id: 3, title: 'Tarefa 3', completed: false }
-  ];
+  constructor(private service: AppService) { }
+
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.service.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
+  }
 
   markAsCompleted(task: Task) {
     task.completed = true;

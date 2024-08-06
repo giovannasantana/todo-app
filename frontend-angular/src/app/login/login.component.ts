@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router, private service: AppService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -17,13 +22,19 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
-    console.log(this.loginForm);
   }
 
-  onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log('Form Data:', this.loginForm.value);
-      // Implementar a lógica de cadastro aqui
-    }
+  onLogin() {
+    this.service.login(this.email, this.password).subscribe({
+      next: () => {
+      console.log("entrei")
+        this.router.navigate(['/taks-list']); // Redireciona para a tela de tarefas
+      },
+      error: (err) => {
+      console.log("entrei222")
+        this.errorMessage = 'Credenciais inválidas';
+        console.error('Erro ao autenticar', err);
+      }
+    });
   }
 }

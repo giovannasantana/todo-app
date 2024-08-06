@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'taks-list', component: TaskListComponent },
-  { path: '', redirectTo: '/register', pathMatch: 'full' }, // Redirecionar para a página de register por padrão
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/register' } // Redirecionar qualquer rota desconhecida para register
 ];
 
