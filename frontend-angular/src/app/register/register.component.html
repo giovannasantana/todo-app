@@ -1,0 +1,36 @@
+<div class="form-container">
+  <div class="header">
+    <h1>Cadastro de Usuário</h1>
+  </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Nome:</label>
+      <input id="name" formControlName="name" />
+      <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+        <div *ngIf="registerForm.get('name')?.errors?.['required']">Nome é obrigatório.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">E-mail:</label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+        <div *ngIf="registerForm.get('email')?.errors?.['required']">E-mail é obrigatório.</div>
+      <div *ngIf="registerForm.get('email')?.errors?.['email']">O e-mail deve conter um símbolo "&#64;" e um domínio válido. Exemplo: usuario&#64;dominio.com</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Senha:</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+        <div *ngIf="registerForm.get('password')?.errors?.['required']">Senha é obrigatória.</div>
+        <div *ngIf="registerForm.get('password')?.errors?.['minlength']">A senha deve ter pelo menos 6 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" [disabled]="registerForm.invalid">Enviar</button>
+    </div>
+  </form>
+</div>
