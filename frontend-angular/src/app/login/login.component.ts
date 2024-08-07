@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
@@ -14,27 +14,30 @@ export class LoginComponent implements OnInit {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private service: AppService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private service: AppService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
-
   }
 
   onLogin() {
-    this.service.login(this.email, this.password).subscribe({
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    this.service.login(email, password).subscribe({
       next: () => {
-      console.log("entrei")
-        this.router.navigate(['/taks-list']); // Redireciona para a tela de tarefas
+        this.router.navigate(['/taks-list']);
       },
       error: (err) => {
-      console.log("entrei222")
         this.errorMessage = 'Credenciais inválidas';
-        console.error('Erro ao autenticar', err);
-      }
+      },
     });
   }
 }

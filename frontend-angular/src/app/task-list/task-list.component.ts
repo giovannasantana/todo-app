@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
+import { Task } from 'src/model/task.model';
 
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+// interface Task {
+//   id: number;
+//   description: string;
+//   completed: boolean;
+// }
 
 @Component({
   selector: 'app-task-list',
@@ -29,6 +30,16 @@ export class TaskListComponent implements OnInit {
 
   markAsCompleted(task: Task) {
     task.completed = true;
+  }
+
+  addTask() {
+    const newTaskDescription = prompt('Digite o nome da nova tarefa:');
+    if (newTaskDescription) {
+      const newTask: Task = { description: newTaskDescription, completed: false };
+      this.service.addTask(newTask).subscribe(task => {
+        this.tasks.push(task);
+      });
+    }
   }
 
 }

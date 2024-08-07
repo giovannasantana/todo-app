@@ -26,7 +26,7 @@ router.post("/create", async (req, res) => {
   try {
     const todo = await Todo.create({
       description: req.body.description,
-      complete: req.body.isComplete,
+      isComplete: req.body.isComplete,
       user: req.body.userId,
     });
 

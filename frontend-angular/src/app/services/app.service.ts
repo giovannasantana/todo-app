@@ -1,12 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { Task } from 'src/model/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +25,11 @@ export class AppService {
         }
       })
     );
+  }
+
+  addTask(task: Task): Observable<Task> {
+    console.log("cheguei no addTask service")
+    return this.http.post<Task>(`${this.apiUrl}/todo/create`, task);
   }
 
   getToken(): string | null {
