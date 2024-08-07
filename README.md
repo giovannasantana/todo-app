@@ -86,8 +86,9 @@ npm test
 
 ## DESAFIO PUBLICAÇÃO
 
-- E se você precisar disponibilizar essa aplicação na AWS? Descreva brevemente como o
-  faria.
+**E se você precisar disponibilizar essa aplicação na AWS? Descreva brevemente como o
+  faria.**
+  
 
 - Configurar e iniciar uma instância EC2 para o backend.
 - Configurar o MongoDB (usando RDS ou MongoDB Atlas).
