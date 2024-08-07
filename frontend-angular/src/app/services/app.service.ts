@@ -41,7 +41,6 @@ export class AppService {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password }).pipe(
       tap(response => {
         if (response.token) {
-          console.log('Token recebido:', response);
           localStorage.setItem(this.tokenKey, response.token);
         }
       })
@@ -49,7 +48,6 @@ export class AppService {
   }
 
   addTask(task: Task): Observable<Task> {
-    console.log("cheguei no addTask service", task)
     return this.http.post<Task>(`${this.apiUrl}/todo/create`, task);
   }
 
