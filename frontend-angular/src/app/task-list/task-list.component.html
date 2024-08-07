@@ -4,9 +4,9 @@
     <button (click)="addTask()">Adicionar Tarefa</button>
     <ul>
       <li *ngFor="let task of tasks">
-        <span [class.completed]="task.completed">{{ task.description }}</span>
-        <button (click)="markAsCompleted(task)" [disabled]="task.completed">
-          {{ task.completed ? 'Concluído' : 'Concluir' }}
+        <span [class.completed]="task.isComplete">{{ task.description }}</span>
+        <button (click)="markAsCompleted(task)" [disabled]="task.isComplete">
+          {{ task.isComplete ? 'Concluído' : 'Concluir' }}
         </button>
       </li>
     </ul>

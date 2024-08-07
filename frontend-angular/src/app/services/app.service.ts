@@ -1,19 +1,30 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Task } from 'src/model/task.model';
+
+interface TaskResponse {
+  todos: Task[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/api';
   private tokenKey = 'authToken';
 
   constructor(private http: HttpClient) { }
 
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/todo/todos`);
+  getTasks(): Observable<TaskResponse> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.getToken()}`,
+    });
+
+    return this.http.get<TaskResponse>(`${this.apiUrl}/todo/todos`, {
+      headers,
+    });
   }
 
   login(email: string, password: string): Observable<any> {
@@ -28,7 +39,7 @@ export class AppService {
   }
 
   addTask(task: Task): Observable<Task> {
-    console.log("cheguei no addTask service")
+    console.log("cheguei no addTask service", task)
     return this.http.post<Task>(`${this.apiUrl}/todo/create`, task);
   }
 
