@@ -14,6 +14,8 @@ export const authMiddleware = (
 ) => {
   const headers = req.headers;
 
+  console.log("headers =========> ", headers);
+
   if (!headers.authorization) {
     return res.status(401).send({ error: "Token is required" });
   }
