@@ -83,3 +83,14 @@ npm test
 - **POST /auth/login: Login** do usuário
 - **POST /todos/create:** Criação de uma nova tarefa
 - **GET /todos:** Listagem de todas as tarefas do usuário
+
+## DESAFIO PUBLICAÇÃO
+
+- E se você precisar disponibilizar essa aplicação na AWS? Descreva brevemente como o
+  faria.
+
+- Configurar e iniciar uma instância EC2 para o backend.
+- Configurar o MongoDB (usando RDS ou MongoDB Atlas).
+- Configurar o ambiente Node.js na instância EC2 e executar o backend.
+- Construir e hospedar o frontend no S3.
+- Configurar DNS e CDN para melhorar a performance e acessibilidade (opcional).
