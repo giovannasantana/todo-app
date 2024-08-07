@@ -27,6 +27,16 @@ export class AppService {
     });
   }
 
+  addUser(name:string, email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/register`, {name, email, password }).pipe(
+      tap(response => {
+        if (response.token) {
+          localStorage.setItem(this.tokenKey, response.token);
+        }
+      })
+    );
+  }
+
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, { email, password }).pipe(
       tap(response => {

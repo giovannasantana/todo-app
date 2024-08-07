@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppService } from '../services/app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,8 +10,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
+  name: string = '';
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private service: AppService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -17,14 +27,20 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-
-    console.log(this.registerForm);
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
-      console.log('Form Data:', this.registerForm.value);
-      // Implementar a lógica de cadastro aqui
-    }
+    const name = this.registerForm.get('name')?.value;
+    const email = this.registerForm.get('email')?.value;
+    const password = this.registerForm.get('password')?.value;
+
+    this.service.addUser(name, email, password).subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.errorMessage = 'Credenciais inválidas';
+      },
+    });
   }
 }
