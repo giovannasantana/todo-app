@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Por favor, preencha todos os campos corretamente.';
+      return;
+    }
+
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
 
@@ -36,7 +41,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/taks-list']);
       },
       error: (err) => {
-        this.errorMessage = 'Credenciais inválidas';
+        if (err.status === 401) {
+          this.errorMessage = 'Credenciais inválidas';
+        } else {
+          this.errorMessage = 'Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.';
+        }
       },
     });
   }
