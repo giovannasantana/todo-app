@@ -39,7 +39,11 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.errorMessage = 'Credenciais inválidas';
+        if (err.status === 400) {
+          this.errorMessage = 'Este e-mail já está em uso.';
+        } else {
+          this.errorMessage = 'Ocorreu um erro ao tentar se cadastrar. Tente novamente mais tarde.';
+        }
       },
     });
   }
