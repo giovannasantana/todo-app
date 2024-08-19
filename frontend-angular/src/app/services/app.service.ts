@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { Task } from 'src/model/task.model';
+import { Task } from 'src/app/model/task.model';
 
 interface TaskResponse {
   todos: Task[];
